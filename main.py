@@ -1,15 +1,21 @@
-from typing import Union
-
 from fastapi import FastAPI
+from bs4 import BeautifulSoup
+import requests
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/{asin}")
+def get_data(asin: str):
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    })
+    resp = session.get("https://google.com")
+    soup = BeautifulSoup(resp.text, "html.parser")
+    data = {
+        "asin": asin,
+        "name": soup.select_one("h1#title").text,
+        "price": soup.select_one("span.a-offspring").text
+    }
+    return{"results":data}
