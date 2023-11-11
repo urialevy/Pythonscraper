@@ -1,18 +1,16 @@
 from requests_html import HTMLSession
 
 class Scraper():
-    
-    def __init__(self, url,tag,s) -> None:
-        self.url = url
-        self.tag = tag
-        self.s = s
 
-    def scrape_data(self, url, tag, s):
+    def scrape_data(self, tag):
         url = f"https://quotes.toscrape.com/tag/{tag}"
+        s = HTMLSession()
         r = s.get(url)
+        print(r.status_code)
         qlist = []
+
         quotes = r.html.find('div.quote')
-     
+
         for q in quotes:
             item = {
                 "text": q.find('span.text', first=True).text.strip(),
@@ -21,6 +19,6 @@ class Scraper():
             qlist.append(item)
         return qlist
 
-humor_quotes = Scraper("https://quotes.toscrape.com/tag/", "humor", HTMLSession())
+quotes = Scraper()
 
-print(humor_quotes.scrape_data("https://quotes.toscrape.com/tag/", "humor", HTMLSession()))
+quotes.scrape_data("humor")
