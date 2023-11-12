@@ -6,7 +6,6 @@ class Scraper():
         url = f"https://quotes.toscrape.com/tag/{tag}"
         s = HTMLSession()
         r = s.get(url)
-        print(r.status_code)
         qlist = []
 
         quotes = r.html.find('div.quote')
