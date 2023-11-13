@@ -24,5 +24,5 @@ async def read_quotes(cat):
 
 @app.get("/")
 def read_item(request: Request, author: str, quote: str):
-    return templates.TemplateResponse("item.html", {"request": request, "author": author, "quote": quote})
+    return templates.TemplateResponse("/item.html", {"request": request, "author": author, "quote": quote})
 
