@@ -10,7 +10,6 @@ class Scraper():
         url = f"{self.quote_url}{tag}"
         r = self.session.get(url)
         qlist = []
-
         quotes = r.html.find('div.quote')
 
         for q in quotes:
@@ -19,8 +18,4 @@ class Scraper():
                 "author": q.find('small.author', first=True).text.strip()
              }
             qlist.append(item)
-        return qlist    
-
-# quotes = Scraper()
-
-# quotes.scrape_data("simile")
+        return qlist
