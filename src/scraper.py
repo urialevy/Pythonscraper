@@ -21,6 +21,6 @@ class Scraper():
             qlist.append(item)
         return qlist    
 
-quotes = Scraper()
+# quotes = Scraper()
 
-quotes.scrape_data("simile")
+# quotes.scrape_data("simile")
