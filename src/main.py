@@ -9,8 +9,6 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI()
 quotes = Scraper()
 
-quotes.scrape_data("humor")
-
 templates = Jinja2Templates(directory="templates")
 
 
@@ -22,7 +20,11 @@ templates = Jinja2Templates(directory="templates")
 async def read_quotes(cat):
     return quotes.scrape_data(cat)
 
-@app.get("/")
-def read_item(request: Request, author: str, quote: str):
-    return templates.TemplateResponse("/item.html", {"request": request, "author": author, "quote": quote})
+@app.get("/scrape/{scraper_keyword}", response_class=HTMLResponse)
+def read_item(request: Request, scraper_keyword: str):
+    scraped_quotes = quotes.scrape_data(scraper_keyword)
+    for scraped_quote in scraped_quotes:
+        print(scraped_quote)
+    return templates.TemplateResponse(
+        "item.html", {"request": request, "quotes_list": scraped_quotes})
 
