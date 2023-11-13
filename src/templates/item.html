@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>Quote Details</title>
+  </head>
+  <body>
+    {% for dict_item in quotes_list%} {% for key, value in dict_item.items() %}
+    {% if key == "author" %}
+    <b>Author: {{value}}</b>
+    {% endif %} {% if key == "text" %}
+    <p>{{value}}</p>
+    {% endif %} {% endfor %} {% endfor %}
+  </body>
+</html>
