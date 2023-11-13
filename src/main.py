@@ -12,10 +12,6 @@ quotes = Scraper()
 templates = Jinja2Templates(directory="templates")
 
 
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
-
 @app.get("/{cat}")
 async def read_quotes(cat):
     return quotes.scrape_data(cat)
