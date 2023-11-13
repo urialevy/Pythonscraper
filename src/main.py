@@ -16,6 +16,10 @@ templates = Jinja2Templates(directory="templates")
 async def read_quotes(cat):
     return quotes.scrape_data(cat)
 
+@app.get("/", response_class=HTMLResponse)
+def home_page(request: Request):
+    return templates.TemplateResponse('home.html', {"request":request})
+
 @app.get("/scrape/{scraper_keyword}", response_class=HTMLResponse)
 def read_item(request: Request, scraper_keyword: str):
     scraped_quotes = quotes.scrape_data(scraper_keyword)
