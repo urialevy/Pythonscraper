@@ -6,11 +6,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 
+
 app = FastAPI()
 quotes = Scraper()
 
 templates = Jinja2Templates(directory="templates")
 
+# app.mount("/static", StaticFiles(directory="~/src/"), name="static")
 
 @app.get("/{cat}")
 async def read_quotes(cat):
